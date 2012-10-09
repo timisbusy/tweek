@@ -44,3 +44,8 @@ stream1.on('tweek', function (tdata) {
     stream1.destroy();
   }
 });
+
+stream1.on('untweek', function (tdata) {
+  console.log('untweek');
+  console.log(tdata);
+});

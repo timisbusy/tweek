@@ -23,9 +23,11 @@ function Tweek (stream, options) {
   this.lastActive = new Date();
 
   this.interval = setInterval(function () { self.runCheck() }, self.options.checkInterval);
+
   this.stream.on('data', function () {
-    self.activity()
+    self.activity();
   });
+
   this.stream.on('end', function () {
     clearInterval(self.interval);
   });
@@ -42,7 +44,10 @@ Tweek.prototype.runCheck = function runCheck () {
 
 Tweek.prototype.activity = function activity () {
   this.lastActive = new Date();
-  this.tweeks = 0;
+  if (this.tweeks > 0) {
+    this.untweek(this.tweeks);
+    this.tweeks = 0;
+  }
 }
 
 Tweek.prototype.tweek = function tweek () {
@@ -50,6 +55,10 @@ Tweek.prototype.tweek = function tweek () {
   if (this.tweeks <= this.options.maxTweeks) {
     this.stream.emit(this.options.eventName, { n: this.tweeks, lastActive: this.lastActive });
   }
+}
+
+Tweek.prototype.untweek = function untweek (n) {
+  this.stream.emit('untweek', { n: n });
 }
 
 module.exports = Tweek;
