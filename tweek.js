@@ -7,14 +7,16 @@ function Tweek (stream, options) {
     maxTweeks: 5,
     checkInterval: 1000,
     patience: 3000,
-    eventName: 'tweek'
+    emitEvent: 'tweek',
+    listenForEvent: 'data'
   }
   this.options = options || {};
 
   this.options.maxTweeks = this.options.maxTweeks || defaults.maxTweeks;
   this.options.checkInterval = this.options.checkInterval || defaults.checkInterval;
   this.options.patience = this.options.patience || defaults.patience;
-  this.options.eventName = this.options.eventName || defaults.eventName;
+  this.options.emitEvent = this.options.emitEvent || defaults.emitEvent;
+  this.options.listenForEvent = this.options.listenForEvent || defaults.listenForEvent;
 
   events.EventEmitter.call(this);
 
@@ -24,7 +26,7 @@ function Tweek (stream, options) {
 
   this.interval = setInterval(function () { self.runCheck() }, self.options.checkInterval);
 
-  this.stream.on('data', function () {
+  this.stream.on(this.options.listenForEvent, function () {
     self.activity();
   });
 
@@ -53,7 +55,7 @@ Tweek.prototype.activity = function activity () {
 Tweek.prototype.tweek = function tweek () {
   this.tweeks++;
   if (this.tweeks <= this.options.maxTweeks) {
-    this.stream.emit(this.options.eventName, { n: this.tweeks, lastActive: this.lastActive });
+    this.stream.emit(this.options.emitEvent, { n: this.tweeks, lastActive: this.lastActive });
   }
 }
 
