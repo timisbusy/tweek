@@ -4,7 +4,7 @@
   "description": "Adds inactivity events to node stream objects.",
   "version": "0.0.0",
   "repository": {
-    "url": ""
+    "url": "https://github.com/timisbusy/tweek.git"
   },
   "main": "index.js",
   "engines": {
