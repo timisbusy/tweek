@@ -2,7 +2,7 @@
   "author": "Tim Atkinson <timisbusy@gmail.com> (timisbusy.com)",
   "name": "tweek",
   "description": "Adds inactivity events to node stream objects.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": {
     "url": "https://github.com/timisbusy/tweek.git"
   },

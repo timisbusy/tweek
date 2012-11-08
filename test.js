@@ -19,7 +19,7 @@ stream1.destroy = function () {
 
 var tweek = new Tweek(stream1, { patience: 4000, checkInterval: 2000, listenForEvent: 'interaction' });
 
-var tweek = new Tweek(stream1, { patience: 2000, checkInterval: 1000, emitEvent: 'supertweek' });
+var tweek = new Tweek(stream1, { patience: 2000, checkInterval: 1000, emitEvent: 'supertweek', verbosity: 4 });
 
 stream1.interval = setInterval(function () {
   var write = Math.random() > .8;
@@ -27,6 +27,10 @@ stream1.interval = setInterval(function () {
     stream1.write('jam', 'utf8');
   }
 }, 1000);
+
+setTimeout(function () {
+  stream1.destroy();
+}, 8000);
 
 stream1.on('data', function (data) {
   console.log(data);

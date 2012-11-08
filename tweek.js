@@ -8,7 +8,8 @@ function Tweek (stream, options) {
     checkInterval: 1000,
     patience: 3000,
     emitEvent: 'tweek',
-    listenForEvent: 'data'
+    listenForEvent: 'data',
+    verbosity: 0
   }
   this.options = options || {};
 
@@ -17,6 +18,7 @@ function Tweek (stream, options) {
   this.options.patience = this.options.patience || defaults.patience;
   this.options.emitEvent = this.options.emitEvent || defaults.emitEvent;
   this.options.listenForEvent = this.options.listenForEvent || defaults.listenForEvent;
+  this.options.verbosity = this.options.verbosity || defaults.verbosity;
 
   events.EventEmitter.call(this);
 
@@ -31,8 +33,15 @@ function Tweek (stream, options) {
   });
 
   this.stream.on('end', function () {
+    self.log({ level: 1, text: 'end event recieved. killing interval.'});
     clearInterval(self.interval);
   });
+
+  this.log = function (event) {
+    if (self.options.verbosity >= event.level) {
+      console.log('TWEEK: ', event.text);
+    }
+  }
 }
 
 util.inherits(Tweek, events.EventEmitter);
@@ -50,17 +59,20 @@ Tweek.prototype.activity = function activity () {
     this.untweek(this.tweeks);
     this.tweeks = 0;
   }
+  this.log({ level: 4, text: 'activity.'});
 }
 
 Tweek.prototype.tweek = function tweek () {
   this.tweeks++;
   if (this.tweeks <= this.options.maxTweeks) {
+    this.log({ level: 2, text: 'tweek.'});
     this.stream.emit(this.options.emitEvent, { n: this.tweeks, lastActive: this.lastActive });
   }
 }
 
 Tweek.prototype.untweek = function untweek (n) {
   this.stream.emit('untweek', { n: n });
+  this.log({ level: 2, text: 'untweek.'});
 }
 
 module.exports = Tweek;
