@@ -2,6 +2,8 @@
 
 
 Adds inactivity events to node.js stream objects.
+![alt text](http://images.wikia.com/southpark/it/images/3/36/Tweek.JPG "Tweek")
+
 
 ## install
 ```
