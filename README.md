@@ -27,13 +27,14 @@ This will check every 2 seconds to see that the stream has not been inactive for
 ## supertweek, supertweek
 
 You can also set up a second tweek on your stream (if you want to say, send an email on your first tweek, and try reconnecting after a longer period). Adding to the above:
+```
   var options2 = { patience: 25000, checkInterval: 10000, emitEvent: 'supertweek' }
   new Tweek(myStream, options2);
   
   myStream.on('supertweek', function (tweek) {
     console.log('superTweeeeeeeek!');
   });
-
+```
 ## optional parameters
 
 You can use the following in your options object:
