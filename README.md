@@ -9,29 +9,29 @@ Adds inactivity events to node.js stream objects.
 
 ## use
 
-> var Tweek = require('tweek');
->
-> var myStream = createMyAmazingStream();
->
-> var options = { patience: 5000, checkInterval: 2000 }
->
-> new Tweek(myStream, options);
->
-> myStream.on('tweek', function (tweek) {
->   console.log('tweeked this many times: ', tweek.n);
-> });
+  var Tweek = require('tweek');
+
+  var myStream = createMyAmazingStream();
+
+  var options = { patience: 5000, checkInterval: 2000 };
+  
+  new Tweek(myStream, options);
+  
+  myStream.on('tweek', function (tweek) {
+    console.log('tweeked this many times: ', tweek.n);
+  });
 
 This will check every 2 seconds to see that the stream has not been inactive for more than 5 seconds.
 
 ## supertweek, supertweek
 
 You can also set up a second tweek on your stream (if you want to say, send an email on your first tweek, and try reconnecting after a longer period). Adding to the above:
-> var options2 = { patience: 25000, checkInterval: 10000, emitEvent: 'supertweek' }
-> new Tweek(myStream, options2);
->
-> myStream.on('supertweek', function (tweek) {
-> console.log('superTweeeeeeeek!');
->});
+  var options2 = { patience: 25000, checkInterval: 10000, emitEvent: 'supertweek' }
+  new Tweek(myStream, options2);
+  
+  myStream.on('supertweek', function (tweek) {
+    console.log('superTweeeeeeeek!');
+  });
 
 ## optional parameters
 
