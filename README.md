@@ -4,11 +4,11 @@
 Adds inactivity events to node.js stream objects.
 
 ## install
-
-> npm install tweek
-
+```
+  npm install tweek
+```
 ## use
-
+```
   var Tweek = require('tweek');
 
   var myStream = createMyAmazingStream();
@@ -20,6 +20,7 @@ Adds inactivity events to node.js stream objects.
   myStream.on('tweek', function (tweek) {
     console.log('tweeked this many times: ', tweek.n);
   });
+```
 
 This will check every 2 seconds to see that the stream has not been inactive for more than 5 seconds.
 
